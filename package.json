@@ -1,0 +1,27 @@
+{
+  "name": "douban_top250",
+  "version": "1.0.0",
+  "description": "top250 movies",
+  "main": "app.js",
+  "dependencies": {
+    "cheerio": "^0.22.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guaji820/douban_top250.git"
+  },
+  "keywords": [
+    "douban",
+    "movie"
+  ],
+  "author": "lify",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/guaji820/douban_top250/issues"
+  },
+  "homepage": "https://github.com/guaji820/douban_top250#readme"
+}
