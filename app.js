@@ -3,7 +3,8 @@ const http = require('http'),
     cheerio = require('cheerio'),
     fs = require('fs'),
     path = require('path'),
-    {target, port, path0, pageSize} = require('./common/config')
+    {target, port, path0, pageSize} = require('./common/config'),
+    co = require('co')
 
 const url = port===80?`${target}${path0}`:`${target}:${port}${path0}`
 
@@ -40,7 +41,7 @@ function saveJSON(jsonPath, movies){
     })
 }
 
-function spiderMovie(index){
+function *spiderMovie(index){
     https.get('https://'+url+'?start=' + index, res=>{
         let html = ''
         let movies = []
@@ -71,28 +72,27 @@ function spiderMovie(index){
         console.log(err)
     })
 }
-function *dospider(limit){
-    let start = 0
-    while(start<limit){
-        yield start
-        spiderMovie(start)
-        start += pageSize
+// 普通generator方式执行
+// function *dospider(limit){
+//     let start = 0
+//     while(start<limit){
+//         yield start
+//         spiderMovie(start)
+//         start += pageSize
+//     }
+// }
+
+// for(let x of dospider(50)){
+//     console.log(x)
+// }
+//co 异步库来执行
+co((function(limit){
+    return function*(){
+        let start = 0
+        while(start<limit){
+            yield spiderMovie(start)
+            start += pageSize
+        }
     }
-}
+})(250))
 
-for(let x of dospider(50)){
-    console.log(x)
-}
-
-/*
-let spider = co(function *(limit){
-    let start = 0
-    while (start <limit){
-        yield start
-        spiderMovie(start)
-        start += pageSize
-    }
-})
-
-spider()
-*/
