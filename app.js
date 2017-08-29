@@ -7,7 +7,12 @@ const http = require('http'),
     co = require('co')
 
 const url = port===80?`${target}${path0}`:`${target}:${port}${path0}`
-
+/**
+ * 
+ * @api {get}/download Download Img info
+ * @apiName downloadImg
+ * @apiGroup Download
+ */
 function downloadImg(imgDir, url){
     https.get(url, res=>{
         let data = ''
