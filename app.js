@@ -12,6 +12,9 @@ const url = port===80?`${target}${path0}`:`${target}:${port}${path0}`
  * @api {get}/download Download Img info
  * @apiName downloadImg
  * @apiGroup Download
+ * @apiVersion 0.2.0
+ * 
+ * @apiSuccess {String} name success name
  */
 function downloadImg(imgDir, url){
     https.get(url, res=>{
